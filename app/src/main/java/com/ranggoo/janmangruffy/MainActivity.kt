@@ -21,9 +21,12 @@ class MainActivity : AppCompatActivity() {
     private fun initView(binding: ActivityMainBinding) {
         // with, let, run, also, apply
         // 코틀린 스코프 펑션
-
     }
 
+    // 코틀린
+    // data class => 데이터들을 객체화 시켜서 저장할 때 사용.
+    // class => 클래스는 코드에서 객체화 된 기능.
+    // sealed class => 클래스들을 묶어서 구분할 때 사용.
 
 }
 
