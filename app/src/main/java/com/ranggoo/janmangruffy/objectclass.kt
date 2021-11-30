@@ -30,4 +30,5 @@ class Cafe : Shop {
 fun main(){
     val newCafe = Cafe()
     newCafe.buy()
+
 }
