@@ -1,60 +1,33 @@
 package com.ranggoo.janmangruffy
 
-interface ItemEvent {
-    fun onClick()
-    fun onScroll()
-    fun onDoubleClick()
+// 샵이라는 인터페이스가 있지.
+// 근데 바디를 보게되면, 데이터타입이 스트링은 로케이션이라는 변수(필드)가 있어.
+// 또 셀과 바이라는 펑션이 있지.
+interface Shop {
+    val location: String
+    fun sell()
+    fun buy()
 }
 
-interface ItemEvent2 : ItemEvent {
-    override fun onClick() {
-        TODO("Not yet implemented")
-    }
-}
-
-class RcvEventClass : ItemEvent {
-    override fun onClick() {
-        println("onClick")
-    }
-
-    override fun onScroll() {
-        println("onScroll")
+// 카페라는 클래스가 있어.
+// 근데 shop이라는 인터페이스를 받아서 쓰고 있네(구현을 하고 있네)?
+// location은 송정동으로 초기화가 되어있고
+// 남은 셀과 바이라는 펑션도 초기화가 되어있어.
+class Cafe : Shop {
+    override val location: String = "송정동 72-110"
+    override fun sell() {
+        println("파는기능..")
     }
 
-    override fun onDoubleClick() {
-        println("onDoubleClick")
-    }
-}
-
-object RcvTestClass : ItemEvent {
-    override fun onClick() {
-        TODO("Not yet implemented")
-    }
-
-    override fun onScroll() {
-        TODO("Not yet implemented")
-    }
-
-    override fun onDoubleClick() {
-        TODO("Not yet implemented")
+    override fun buy() {
+        println("사는기능..")
     }
 }
 
-
-fun main() {
-
-}
-
-
-// 클래스의 특징.
-// 상속을 받을 수 있다. ==> 클래스를 상속 받을 수 있다.
-abstract class Parent {
-    val money: Int = 5000
-    val building: String = "롯데타워"
-
-    abstract fun makeMoney()
-
-    fun test(): String {
-        return "하이"
-    }
+// 카페를 생성하고.
+// 바이라는 메소드를 호출(콜)했네.
+// 출력 -> 로그를 찍었따. 로그를 찍어봤더니, 프린트를 해봤더니,
+fun main(){
+    val newCafe = Cafe()
+    newCafe.buy()
 }
