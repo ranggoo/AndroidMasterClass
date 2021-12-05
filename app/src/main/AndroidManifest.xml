@@ -10,36 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.JanmangRuffy">
         <activity
-            android:name=".RainbowTest"
-            android:exported="false" />
-        <activity
-            android:name=".Rf9Activity"
-            android:exported="false" />
-        <activity
-            android:name=".Rf8Activity"
-            android:exported="false" />
-        <activity
-            android:name=".Rf7Activity"
-            android:exported="false" />
-        <activity
-            android:name=".Rf6Activity"
-            android:exported="false" />
-        <activity
-            android:name=".Rf5Activity"
-            android:exported="false" />
-        <activity
-            android:name=".Rf4Activity"
-            android:exported="false" />
-        <activity
-            android:name=".Rf3Activity"
-            android:exported="false" />
-        <activity
-            android:name=".Rf2Activity"
-            android:exported="false" />
-        <activity
-            android:name=".Rf1Activity"
-            android:exported="false" />
-        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

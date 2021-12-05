@@ -19,10 +19,20 @@
         <entry key="..\:/Project/janmangRuffy/app/src/main/res/layout/practice.xml" value="0.25" />
         <entry key="..\:/Project/janmangRuffy/app/src/main/res/layout/test_rainbow.xml" value="0.27239583333333334" />
         <entry key="..\:/Project/janmangRuffy/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.15833333333333333" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.37604166666666666" />
+        <entry key="app/src/main/res/layout/activity_rf1.xml" value="0.28177083333333336" />
+        <entry key="app/src/main/res/layout/activity_rf2.xml" value="0.28177083333333336" />
+        <entry key="app/src/main/res/layout/activity_rf3.xml" value="0.28177083333333336" />
+        <entry key="app/src/main/res/layout/activity_rf4.xml" value="0.28177083333333336" />
+        <entry key="app/src/main/res/layout/activity_rf5.xml" value="0.28177083333333336" />
+        <entry key="app/src/main/res/layout/activity_rf6.xml" value="0.28177083333333336" />
+        <entry key="app/src/main/res/layout/activity_rf7.xml" value="0.28177083333333336" />
+        <entry key="app/src/main/res/layout/activity_rf8.xml" value="0.28177083333333336" />
+        <entry key="app/src/main/res/layout/item_janmang_ruffy.xml" value="0.37604166666666666" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

@@ -1,109 +1,56 @@
 package com.ranggoo.janmangruffy
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.ImageView
-import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.ranggoo.janmangruffy.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+
+    /**
+     * 느낌표두개를 써야될 경우.
+     * 반드시 선언이 되어있어야되거나, 문제가 없어야되는 코드에 써야된다.
+     * 왜냐하면 이부분이 문제가 생기면 앱자체가 동작이 안될테니까, 강제로 앱애 크래시를 발생하게 해줘야 한다.
+     */
+    private var _binding: ActivityMainBinding? = null
+    private val binding: ActivityMainBinding by lazy { _binding!! }
+
+    private var mainViewModel: MainViewModel = MainViewModel()
+    private var ruffyAdapter = RuffyAdapter()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
-//        화면을 보여주는 코드
-        val binding = ActivityMainBinding.inflate(layoutInflater)
+//      화면을 보여주는 코드
+        _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-//        버튼 클릭 시 동작하는 부분
-
-        binding.rfImage1.setOnClickListener {
-// 메세지 뜨게 함
-            Toast.makeText(this, "멍멍루피", Toast.LENGTH_SHORT).show()
-
-//           화면이 클릭되면 확대 되도록
-            val intent = Intent(this, Rf1Activity::class.java)
-            startActivity(intent)
-
-        }
-
-//이미지 이름 붙이고 각각 클릭 시 다른 액티비티 이동
-
-        binding.rfImage2.setOnClickListener {
-
-            Toast.makeText(this, "초롱루피", Toast.LENGTH_SHORT).show()
-            val intent = Intent(this, Rf2Activity::class.java)
-            startActivity(intent)
-        }
-
-        binding.rfImage3.setOnClickListener {
-
-            Toast.makeText(this, "해삐루피", Toast.LENGTH_SHORT).show()
-            val intent = Intent(this, Rf3Activity::class.java)
-            startActivity(intent)
-
-        }
-
-        binding.rfImage4.setOnClickListener {
-
-            Toast.makeText(this, "뻘쭘루피", Toast.LENGTH_SHORT).show()
-            val intent = Intent(this, Rf4Activity::class.java)
-            startActivity(intent)
-        }
-
-
-        binding.rfImage5.setOnClickListener {
-
-            Toast.makeText(this, "짜증루피", Toast.LENGTH_SHORT).show()
-
-            val intent = Intent(this, Rf5Activity::class.java)
-            startActivity(intent)
-
-
-        }
-
-        binding.rfImage6.setOnClickListener {
-
-
-            Toast.makeText(this, "몰래루피", Toast.LENGTH_SHORT).show()
-            val intent = Intent(this, Rf6Activity::class.java)
-            startActivity(intent)
-
-        }
-
-        binding.rfImage7.setOnClickListener {
-
-            Toast.makeText(this, "쭈굴루피", Toast.LENGTH_SHORT).show()
-
-            val intent = Intent(this, Rf7Activity::class.java)
-            startActivity(intent)
-
-        }
-
-
-        binding.rfImage8.setOnClickListener {
-
-            Toast.makeText(this, "꺼이루피", Toast.LENGTH_SHORT).show()
-
-            val intent = Intent(this, Rf8Activity::class.java)
-            startActivity(intent)
-        }
-
-        binding.rfImage9.setOnClickListener {
-
-            Toast.makeText(this, "너지스님 부르는 랑구", Toast.LENGTH_SHORT).show()
-
-            val intent = Intent(this, Rf9Activity::class.java)
-            startActivity(intent)
-
-
-        }
-
+        val ruffies = mainViewModel.getRuffies(this@MainActivity)
+        initView()
+        initViewModel(ruffies)
 
     }
 
+    private fun initView() = with(binding) {
+        rvRuffy.run {
+            adapter = ruffyAdapter
+            layoutManager = LinearLayoutManager(context) // this@MainActivity == context 동일함.
+        }
+    }
+
+    private fun initViewModel(ruffies: List<ItemRuffy>) {
+        ruffyAdapter.submitList(ruffies)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        // 앱이 화면에서 삭제될 때 실행되는 메소드.
+        // 앱이 화면에서 사라진다고 해서, 니가 사용했던 변수나 클래스가 다 없어지는게 아니야.
+        // null을 넣어줘야, 메모리에서 삭제가 된다.
+        // 자바버추어머신(JVM)이 null로 지정된 것들을 쓰레기 값으로 취급을 해서 다 수집해서 없앤다.
+        _binding = null
+    }
 
 }
+
 
 
