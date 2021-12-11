@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../layout/custom_preview.xml" value="0.28177083333333336" />
         <entry key="..\:/Project/janmangRuffy/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.38229166666666664" />
         <entry key="..\:/Project/janmangRuffy/app/src/main/res/drawable/bg_purple_radius_24.xml" value="0.28854166666666664" />
         <entry key="..\:/Project/janmangRuffy/app/src/main/res/drawable/ic_launcher_background.xml" value="0.38229166666666664" />
@@ -28,6 +29,7 @@
         <entry key="app/src/main/res/layout/activity_rf6.xml" value="0.28177083333333336" />
         <entry key="app/src/main/res/layout/activity_rf7.xml" value="0.28177083333333336" />
         <entry key="app/src/main/res/layout/activity_rf8.xml" value="0.28177083333333336" />
+        <entry key="app/src/main/res/layout/item_janmang.xml" value="0.21666666666666667" />
         <entry key="app/src/main/res/layout/item_janmang_ruffy.xml" value="0.37604166666666666" />
       </map>
     </option>

@@ -2,11 +2,11 @@ package com.ranggoo.janmangruffy
 
 import android.content.Context
 
-class MainViewModel {
-
+class MainViewModel() {
 
     fun getRuffies(context: Context): List<ItemRuffy> {
         val list = mutableListOf<ItemRuffy>()
+        // 그래서 이런 예제를 만들라고 넘겨줄수 밖에 없었다.
         list.add(
             ItemRuffy(
                 title = "너지스님을 꼬라보는 루피.",
@@ -152,7 +152,8 @@ class MainViewModel {
             )
         )
 
-        return list
+        // usecase를 써서 데이터를 받아왔다고 가정.
+        return list // <-- 엔터티.
 
     }
 

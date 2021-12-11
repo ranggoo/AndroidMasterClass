@@ -2,52 +2,46 @@ package com.ranggoo.janmangruffy
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ranggoo.janmangruffy.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    /**
-     * 느낌표두개를 써야될 경우.
-     * 반드시 선언이 되어있어야되거나, 문제가 없어야되는 코드에 써야된다.
-     * 왜냐하면 이부분이 문제가 생기면 앱자체가 동작이 안될테니까, 강제로 앱애 크래시를 발생하게 해줘야 한다.
-     */
-    private var _binding: ActivityMainBinding? = null
-    private val binding: ActivityMainBinding by lazy { _binding!! }
-
-    private var mainViewModel: MainViewModel = MainViewModel()
-    private var ruffyAdapter = RuffyAdapter()
+    private var viewModel: MainViewModel = MainViewModel()
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//      화면을 보여주는 코드
-        _binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        val ruffies = mainViewModel.getRuffies(this@MainActivity)
         initView()
-        initViewModel(ruffies)
-
     }
 
-    private fun initView() = with(binding) {
-        rvRuffy.run {
-            adapter = ruffyAdapter
-            layoutManager = LinearLayoutManager(context) // this@MainActivity == context 동일함.
+    // 뷰와 관련된 이벤트들을 초기화 함.
+    private fun initView() {
+
+        binding.rvRuffy.layoutManager = LinearLayoutManager(this@MainActivity)
+
+        binding.btnLoad.setOnClickListener {
+            // #1 뷰모델로 루피목록 요청해서 받음.
+            val ruffies = viewModel.getRuffies(context = this@MainActivity);
+            // #2 루피목로을 어댑터에 셋팅 함.
+            val adapter = RuffyAdapter(ruffies)
+
+            adapter.addClickEventListener(object : ItemRuffyEvent {
+                override fun onClick(position: Int) {
+                    Toast.makeText(this@MainActivity, "$position 번째 루피입니다.", Toast.LENGTH_SHORT).show()
+                }
+
+                override fun onLongClick(position: Int) {
+                    Toast.makeText(this@MainActivity, "롱클릭 $position 번째 루피입니다.", Toast.LENGTH_SHORT).show()
+                }
+            })
+
+            // #3 어댑터를 리싸이클러뷰에 달아줌.
+            binding.rvRuffy.adapter = adapter
         }
-    }
-
-    private fun initViewModel(ruffies: List<ItemRuffy>) {
-        ruffyAdapter.submitList(ruffies)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        // 앱이 화면에서 삭제될 때 실행되는 메소드.
-        // 앱이 화면에서 사라진다고 해서, 니가 사용했던 변수나 클래스가 다 없어지는게 아니야.
-        // null을 넣어줘야, 메모리에서 삭제가 된다.
-        // 자바버추어머신(JVM)이 null로 지정된 것들을 쓰레기 값으로 취급을 해서 다 수집해서 없앤다.
-        _binding = null
     }
 
 }

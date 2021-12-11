@@ -3,10 +3,8 @@ package com.ranggoo.janmangruffy
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.ranggoo.janmangruffy.databinding.ItemJanmangRuffyBinding
+import com.ranggoo.janmangruffy.databinding.ItemJanmangBinding
 
 data class ItemRuffy(
     val title: String,
@@ -14,45 +12,60 @@ data class ItemRuffy(
     val image: Drawable?,
 )
 
-private var itemDiffCallback = object : DiffUtil.ItemCallback<ItemRuffy>() {
-    override fun areItemsTheSame(oldItem: ItemRuffy, newItem: ItemRuffy): Boolean = oldItem.title == newItem.title
-    override fun areContentsTheSame(oldItem: ItemRuffy, newItem: ItemRuffy): Boolean = oldItem == newItem
+interface ItemRuffyEvent {
+    fun onClick(position: Int)
+    fun onLongClick(position: Int)
 }
 
-class RuffyAdapter : ListAdapter<ItemRuffy, RuffyAdapter.RuffyViewHolder>(itemDiffCallback) {
+class RuffyAdapter(
+    val list: List<ItemRuffy>
+) : RecyclerView.Adapter<RuffyAdapter.JanMangViewHolder>() {
 
+    var clickEvent: ItemRuffyEvent? = null
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RuffyViewHolder {
-        return RuffyViewHolder(
-            ItemJanmangRuffyBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            )
-        )
+    fun addClickEventListener(listener:ItemRuffyEvent){
+        clickEvent = listener;
     }
 
-    override fun onBindViewHolder(holder: RuffyViewHolder, position: Int) {
-        val item = getItem(position)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): JanMangViewHolder {
+        val itemViewBinding = ItemJanmangBinding.inflate(LayoutInflater.from(parent.context), parent, false);
+        val viewHolder = JanMangViewHolder(itemViewBinding)
+        return viewHolder
+    }
+
+    override fun onBindViewHolder(holder: JanMangViewHolder, position: Int) {
+        // 뷰홀더에 있는 아이템뷰를 셋팅해주는 부분.
+        val item = list.get(position)
         holder.bind(item)
     }
 
-    class RuffyViewHolder(
-        val binding: ItemJanmangRuffyBinding
-    ) : RecyclerView.ViewHolder(binding.root) {
+    override fun getItemCount(): Int = list.size
 
+//    override fun getItemViewType(position: Int): Int {
+//        return super.getItemViewType(position)
+//    }
+//
+//    override fun getItemId(position: Int): Long {
+//        return super.getItemId(position)
+//    }
+
+    inner class JanMangViewHolder(val itemViewBinding: ItemJanmangBinding) : RecyclerView.ViewHolder(itemViewBinding.root) {
         fun bind(item: ItemRuffy) {
-            with(binding) {
-                ivRuffy.setImageDrawable(item.image)
-                tvTitle.text = item.title
-                tvContent.text = item.content
+            itemViewBinding.ivRuffy.setImageDrawable(item.image)
+            itemViewBinding.tvTitle.text = item.title
+            itemViewBinding.tvContent.text = item.content
+
+//            itemViewBinding.ivRuffy.setOnClickListener {
+//                clickEvent?.onClick(adapterPosition)
+//            }
+            itemViewBinding.ivRuffy.setOnLongClickListener {
+                clickEvent?.onLongClick(adapterPosition)
+                false
             }
         }
     }
 
 }
-
-
 
 
 
