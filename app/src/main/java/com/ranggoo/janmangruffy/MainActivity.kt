@@ -2,6 +2,8 @@ package com.ranggoo.janmangruffy
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ranggoo.janmangruffy.databinding.ActivityMainBinding
 
@@ -23,11 +25,15 @@ class MainActivity : AppCompatActivity() {
 //      화면을 보여주는 코드
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        val ruffies = mainViewModel.getRuffies(this@MainActivity)
         initView()
-        initViewModel(ruffies)
+        val ruffies = mainViewModel.getRuffies(this@MainActivity)
+        ruffyAdapter.submitList(ruffies)
 
+        Handler().postDelayed({
+            val newRuffies = ruffies.toMutableList()
+            newRuffies.removeAt(1)
+            ruffyAdapter.submitList(newRuffies)
+        },2000)
     }
 
     private fun initView() = with(binding) {
@@ -35,10 +41,6 @@ class MainActivity : AppCompatActivity() {
             adapter = ruffyAdapter
             layoutManager = LinearLayoutManager(context) // this@MainActivity == context 동일함.
         }
-    }
-
-    private fun initViewModel(ruffies: List<ItemRuffy>) {
-        ruffyAdapter.submitList(ruffies)
     }
 
     override fun onDestroy() {

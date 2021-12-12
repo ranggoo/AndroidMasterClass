@@ -1,6 +1,5 @@
 package com.ranggoo.janmangruffy
 
-import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -8,34 +7,27 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ranggoo.janmangruffy.databinding.ItemJanmangRuffyBinding
 
-data class ItemRuffy(
-    val title: String,
-    val content: String,
-    val image: Drawable?,
-)
 
 private var itemDiffCallback = object : DiffUtil.ItemCallback<ItemRuffy>() {
-    override fun areItemsTheSame(oldItem: ItemRuffy, newItem: ItemRuffy): Boolean = oldItem.title == newItem.title
-    override fun areContentsTheSame(oldItem: ItemRuffy, newItem: ItemRuffy): Boolean = oldItem == newItem
+    override fun areItemsTheSame(oldItem: ItemRuffy, newItem: ItemRuffy): Boolean {
+        return oldItem.id == newItem.id
+    }
+    override fun areContentsTheSame(oldItem: ItemRuffy, newItem: ItemRuffy): Boolean = oldItem.content == newItem.content
 }
 
 class RuffyAdapter : ListAdapter<ItemRuffy, RuffyAdapter.RuffyViewHolder>(itemDiffCallback) {
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RuffyViewHolder {
-        return RuffyViewHolder(
-            ItemJanmangRuffyBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            )
+        val layoutInflater = LayoutInflater.from(parent.context)
+        val itemViewBinding = ItemJanmangRuffyBinding.inflate(
+            layoutInflater,
+            parent,
+            false
         )
+        return RuffyViewHolder(itemViewBinding)
     }
 
-    override fun onBindViewHolder(holder: RuffyViewHolder, position: Int) {
-        val item = getItem(position)
-        holder.bind(item)
-    }
+    override fun onBindViewHolder(holder: RuffyViewHolder, position: Int)  = holder.bind(getItem(position))
 
     class RuffyViewHolder(
         val binding: ItemJanmangRuffyBinding
