@@ -1,6 +1,14 @@
 package com.ranggoo.janmangruffy
 
 import android.content.Context
+import android.graphics.drawable.Drawable
+
+data class ItemRuffy(
+    val title: String,
+    val content: String,
+    val image: Drawable?,
+)
+
 
 class MainViewModel() {
 

@@ -10,6 +10,7 @@ class MainActivity : AppCompatActivity() {
 
     private var viewModel: MainViewModel = MainViewModel()
     private lateinit var binding: ActivityMainBinding
+    private var ruffyAdapter = RuffyAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,26 +23,27 @@ class MainActivity : AppCompatActivity() {
     private fun initView() {
 
         binding.rvRuffy.layoutManager = LinearLayoutManager(this@MainActivity)
+        binding.rvRuffy.adapter = ruffyAdapter
 
         binding.btnLoad.setOnClickListener {
             // #1 뷰모델로 루피목록 요청해서 받음.
             val ruffies = viewModel.getRuffies(context = this@MainActivity);
             // #2 루피목로을 어댑터에 셋팅 함.
-            val adapter = RuffyAdapter(ruffies)
+            ruffyAdapter.submitList(ruffies)
 
-            adapter.addClickEventListener(object : ItemRuffyEvent {
-                override fun onClick(position: Int) {
-                    Toast.makeText(this@MainActivity, "$position 번째 루피입니다.", Toast.LENGTH_SHORT).show()
-                }
-
-                override fun onLongClick(position: Int) {
-                    Toast.makeText(this@MainActivity, "롱클릭 $position 번째 루피입니다.", Toast.LENGTH_SHORT).show()
-                }
-            })
-
-            // #3 어댑터를 리싸이클러뷰에 달아줌.
-            binding.rvRuffy.adapter = adapter
         }
+
+        ruffyAdapter.addClickEventListener(object : ItemRuffyEvent {
+            override fun onDelete(ruffy: ItemRuffy) {
+                // 현재리스트를 가져왔음.
+                val newList = ruffyAdapter.currentList.toMutableList()
+                // 대상을 삭제.
+                newList.remove(ruffy)
+                // 어댑터에 갱신해준다.
+                ruffyAdapter.submitList(newList)
+            }
+        })
+
     }
 
 }
