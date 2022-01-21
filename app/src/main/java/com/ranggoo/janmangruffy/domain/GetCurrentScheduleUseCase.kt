@@ -9,4 +9,5 @@ class GetCurrentScheduleUseCase @Inject constructor(
     suspend operator fun invoke(country: String, date: String): List<EpisodeResponse> {
         return repository.getCurrentSchedule(country, date)
     }
+
 }

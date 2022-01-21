@@ -41,13 +41,13 @@ object NetworkModule {
 
     @Provides
     fun provideRetrofit(
-        @Named(TVMAZE_BASE_URL) baseUrl: String,
+        @Named(NAME_BASE_URL) baseUrl: String,
         okHttpClient: OkHttpClient
     ): Retrofit {
         return Retrofit.Builder()
             .baseUrl(baseUrl)
-            .client(okHttpClient)
             .addConverterFactory(MoshiConverterFactory.create())
+            .client(okHttpClient)
             .build()
     }
 
