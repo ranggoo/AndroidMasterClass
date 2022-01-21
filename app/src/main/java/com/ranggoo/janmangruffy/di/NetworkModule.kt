@@ -11,7 +11,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Named
 
 @InstallIn(SingletonComponent::class)
-@Module(includes = [TvMazeDataSourceModule::class])
+@Module
 object NetworkModule {
 
     const val NAME_BASE_URL = "TVMAZE_BASE_URL"
