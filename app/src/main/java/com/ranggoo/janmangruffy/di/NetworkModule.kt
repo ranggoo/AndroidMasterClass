@@ -1,12 +1,17 @@
 package com.ranggoo.janmangruffy.di
 
+import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Named
 
+@InstallIn(SingletonComponent::class)
+@Module(includes = [TvMazeDataSourceModule::class])
 object NetworkModule {
 
     const val NAME_BASE_URL = "TVMAZE_BASE_URL"
